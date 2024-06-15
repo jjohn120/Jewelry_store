@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Jewelry Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: white;
+            padding: 1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            flex: 1 1 auto;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .container {
+            padding: 2rem;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .product-item {
+            background: white;
+            margin: 1rem;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: calc(33.333% - 2rem);
+            text-align: center;
+        }
+        .product-item img {
+            max-width: 100%;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .contact-form button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background: #555;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            /*margin-top: -180px;
+             /* negative value of footer height */
+            height: 90px;
+            clear: both;
+            font-size: 40;
+        }
+
+        @media (max-width: 768px) {
+            .product-item {
+                width: calc(50% - 2rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-item {
+                width: calc(100% - 2rem);
+            }
+            .container {
+                padding: 1rem;
+            }
+            nav a {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Our Online Jewelry Store</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="rings.html">Rings</a>
+    <a href="necklaces.html">Necklaces</a>
+    <a href="Bracelets.html" >Bracelets</a>
+    <a href="Earrings.html">Earrings</a>
+
+</nav>
+
+
+
+<div class="container" id="products">
+    <h2>Rings</h2>
+    <div class="product-list">
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300" alt="Product 1">
+            <h3>Ring 1</h3>
+            <p>$99.99</p>
+        </div>
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300" alt="Product 2">
+            <h3>Ring 2</h3>
+            <p>$59.99</p>
+        </div>
+        <div class="product-item">
+            <img src="https://via.placeholder.com/300" alt="Product 3">
+            <h3>Ring 3</h3>
+            <p>$149.99</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p><b>2024 Jewelry Store</b></p>
+</footer>
+
+</body>
+</html>

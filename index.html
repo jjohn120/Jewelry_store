@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Jewelry Store</title>
+    <link  href= "index.css" rel="stylesheet" type="text/css" >
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Our Online Jewelry Store</h1>
+
+    <div class="container">
+        <div class="cart" id="cart">
+        <p>Cart(<a id="clicks">0</a>)</p>            <ul class="cart-items"></ul>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="rings.html">Rings</a>
+    <a href="necklaces.html">Necklaces</a>
+    <a href="Bracelets.html" >Bracelets</a>
+    <a href="Earrings.html">Earrings</a>
+    <a href="Appointment.html">Book Appointment</a>
+</nav>
+
+<div class="container" id="home">
+    <h2>Our Collection</h2>
+    <p>Discover our exquisite range of jewelry designed to make you shine.</p>
+    
+</div>
+
+<div class="container" id="products">
+    <h2>Popular Choics</h2>
+    <div class="product-list">
+        <div class="product-item" data-name="Elegant Necklace" data-price="99.99">
+            <img src="https://via.placeholder.com/300" alt="Product 1">
+            <h3>Elegant Necklace</h3>
+            <p>$99.99</p>
+            <button  onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product-item" data-name="Classic Ring" data-price="59.99">
+            <img src="https://via.placeholder.com/300" alt="Product 2">
+            <h3>Classic Ring</h3>
+            <p>$59.99</p>
+            <button  onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product-item" data-name="Diamond Earrings" data-price="149.99">
+            <img src="https://via.placeholder.com/300" alt="Product 3">
+            <h3>Diamond Earrings</h3>
+            <p>$149.99</p>
+            <button  onclick="addToCart(this)">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container" id="contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form" action="#" method="post">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</div>
+
+<footer>
+    <p>&copy; 2024 Online Jewelry Store</p>
+</footer>
+
+<script src="AddToCart.js"></script>
+
+</body>
+</html>
