@@ -11,7 +11,7 @@
     Email.send({
       Host : "smtp.elasticemail.com",
       Username : "gerejohns10@gmail.com",
-      Password : "1271D3A01200DF252D9C88F5B82EE48B4386",
+      Password : "96301AC1DF9FF3955494B258C2999D196394",
       To : 'jj.johnson@valpo.edu',
       From : "gerejohns10@gmail.com",
       Subject : "This is the subject",
