@@ -9,12 +9,12 @@ function emailSend(){
 	"<br/> Email " + email;
 	Email.send({
     Host : "smtp.elasticemail.com",
-    Username : "host@gmail.com",
-    Password : "Password",
-    To : 'reviever@gmail.com',
-    From : "website@gmail.com",
+    Username : "gerejohns10@gmail.com",
+    Password : "1271D3A01200DF252D9C88F5B82EE48B4386Password",
+    To : 'jj.johnson@valpo.edu',
+    From : "gerejohns10@gmail.com",
     Subject : "This is the subject",
-    Body : messageBody
+    Body : "messageBody"
 }).then(
   message => {
   	if(message=='OK'){
