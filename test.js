@@ -10,13 +10,13 @@ function emailSend(){
     Subject : "This is the subject",
     Body : "And this is the body"
   }).then(
-  message => {
-  	if(message=='OK'){
-  		swal("Secussful", "You clicked the button!", "success");
-  	}
-  	else{
-  		swal("Error", "You clicked the button!", "error");
-  	}
+    message => {
+      if(message=='OK'){
+        swal("Secussful", "You clicked the button!", "success");
+      }
+      else{
+        swal("Error", "You clicked the button!", "error");
+      }
+    }
+  );
   }
-);
-}
