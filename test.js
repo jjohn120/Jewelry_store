@@ -11,7 +11,7 @@
     Email.send({
       Host : "smtp.elasticemail.com",
       Username : "gerejohns10@gmail.com",
-      Password : "1271D3A01200DF252D9C88F5B82EE48B4386Password",
+      Password : "1271D3A01200DF252D9C88F5B82EE48B4386",
       To : 'gerejohns10@gmail.com',
       From : "gerejohns10@gmail.com",
       Subject : "This is the subject",
@@ -19,7 +19,7 @@
   }).then(
     message => {
       if(message=='OK'){
-        swal("Secussful", "You clicked the button!", "success");
+        swal("Sucussful", "Email Sent", "success");
       }
       else{
         swal("Error", "You clicked the button!", "error");
