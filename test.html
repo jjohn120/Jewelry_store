@@ -6,11 +6,11 @@
 <body>
 	<div class="container">
 		<h2>Get in Touch</h2>
-		<form>
+		<form onsubmit="emailSend(); reset(); return false;">
 			<input type="text" id="name" placeholder="name" name="name" required>
 			<input type="text" id="phone" placeholder="phone" name="phone" required>
 			<input type="email" id="email" placeholder="email" name="email" required>
-			<button onclick="emailSend()" type="submit" class="btn">submit</button>
+			<button type="submit" class="btn">submit</button>
 		</form>
 	</div> 
 	
