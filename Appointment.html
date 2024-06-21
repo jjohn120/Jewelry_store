@@ -9,30 +9,7 @@
     <link href='https://unpkg.com/@fullcalendar/core@6/main.min.css' rel='stylesheet' />
     <link href='https://unpkg.com/@fullcalendar/daygrid@6/main.min.css' rel='stylesheet' />
     <link href='https://unpkg.com/@fullcalendar/timegrid@6/main.min.css' rel='stylesheet' />
-    <script src='https://unpkg.com/@fullcalendar/core@6/main.min.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/daygrid@6/main.min.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/timegrid@6/main.min.js'></script>
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script type="text/javascript">
-    (function(){
-      emailjs.init({
-        publicKey: "gsEoK_TxiEyrudV-r",
-      });
-      })();
-    </script>
-    <script>
-        function sendMail(){
-            let params = {
-                from_name : document.getElementById("name").value,
-                e_mail: document.getElementById("email").value
-            }
-            emailjs.send("service_pitkqba","template_vljqw9l",params).then(function (res) {
-                alert("Success!"+ res.status);
-            })
-        }
-    </script>
+    
 
 </head>
 <body>
@@ -69,56 +46,7 @@
 
 <div id="calendar"></div>
 
-<script src="Appointment.js"></script>
-<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-   (function(){
-      emailjs.init({
-        publicKey: "gsEoK_TxiEyrudV-r",
-      });
-   })();
 
-   document.addEventListener('DOMContentLoaded', function() {
-       var calendarEl = document.getElementById('calendar');
-
-       var calendar = new FullCalendar.Calendar(calendarEl, {
-           plugins: [ 'dayGrid', 'timeGrid' ],
-           header: {
-               left: 'prev,next today',
-               center: 'title',
-               right: 'dayGridMonth,timeGridWeek,timeGridDay'
-           },
-           selectable: true,
-           select: function(info) {
-               document.getElementById('date').value = info.startStr.split('T')[0];
-               document.getElementById('time').value = info.startStr.split('T')[1].substring(0,5);
-           }
-       });
-
-       calendar.render();
-   });
-
-</script>
-<script type="text/javascript">
-    (function(){
-      emailjs.init({
-        publicKey: "gsEoK_TxiEyrudV-r",
-      });
-      })();
-    </script>
-    <script>
-        function sendMail(){
-            let params = {
-                from_name : document.getElementById("name").value,
-                e_mail: document.getElementById("email").value
-            }
-            emailjs.send("service_pitkqba","template_vljqw9l",params).then(function (res) {
-                alert("Success!"+ res.status);
-            })
-        }
-    </script>
 
 
 <footer>
