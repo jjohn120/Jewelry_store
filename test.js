@@ -15,7 +15,8 @@
       To : 'jj.johnson@valpo.edu',
       From : "gerejohns10@gmail.com",
       Subject : "This is the subject",
-      Body : "And this is the body"
+      Body : "And this is the body",
+      Port:2525
   }).then(
     message => {
       if(message=='OK'){
