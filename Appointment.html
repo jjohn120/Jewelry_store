@@ -26,8 +26,7 @@
         function sendMail(){
             let params = {
                 from_name : document.getElementById("name").value,
-                e_mail: document.getElementById("email").value,
-                message: document.getElementById("date").value
+                e_mail: document.getElementById("email").value
             }
             emailjs.send("service_pitkqba","template_vljqw9l",params).then(function (res) {
                 alert("Success!"+ res.status);
