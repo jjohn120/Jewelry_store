@@ -4,83 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Jewelry Store</title>
-    <link  href= "index.css" rel="stylesheet" type="text/css" >
+    <link href="index.css" rel="stylesheet" type="text/css">
+    <link href="Appointment.css" rel="stylesheet" type="text/css">
+    <link href='https://unpkg.com/@fullcalendar/core@6/main.min.css' rel='stylesheet' />
+    <link href='https://unpkg.com/@fullcalendar/daygrid@6/main.min.css' rel='stylesheet' />
+    <link href='https://unpkg.com/@fullcalendar/timegrid@6/main.min.css' rel='stylesheet' />
+    <script src='https://unpkg.com/@fullcalendar/core@6/main.min.js'></script>
+    <script src='https://unpkg.com/@fullcalendar/daygrid@6/main.min.js'></script>
+    <script src='https://unpkg.com/@fullcalendar/timegrid@6/main.min.js'></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+    (function(){
+      emailjs.init({
+        publicKey: "gsEoK_TxiEyrudV-r",
+      });
+      })();
+    </script>
+    <script>
+        function sendMail(){
+            let params = {
+                from_name : document.getElementById("name").value,
+                e_mail: document.getElementById("email").value,
+                message: document.getElementById("date").value
+            }
+            emailjs.send("service_pitkqba","template_vljqw9l",params).then(function (res) {
+                alert("Success!"+ res.status);
+            })
+        }
+    </script>
+
 </head>
 <body>
 
 <header>
     <h1>Welcome to Our Online Jewelry Store</h1>
-
 </header>
-
 
 <nav>
     <a href="index.html">Home</a>
     <a href="rings.html">Rings</a>
     <a href="necklaces.html">Necklaces</a>
-    <a href="Bracelets.html" >Bracelets</a>
+    <a href="Bracelets.html">Bracelets</a>
     <a href="Earrings.html">Earrings</a>
     <a href="Appointment.html">Book Appointment</a>
 </nav>
+
 <title>Appointment Booking</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        padding: 20px;
-    }
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-        margin-bottom: 20px;
-    }
-    label {
-        display: block;
-        margin-bottom: 8px;
-    }
-    input, select, button {
-        width: 90%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    button {
-        background-color: #28a745;
-        color: white;
-        border: none;
-    }
-    button:hover {
-        background-color: #218838;
-    }
-    /* Media Queries for responsiveness */
-@media (max-width: 600px) {
-    .container {
-        width: 90%;
-        padding: 10px;
-    }
-    
-    input, select, button {
-        width: calc(90% - 10px); /* Adjusted for smaller padding */
-    }
-    
-    nav a {
-        display: block;
-        margin: 10px 0;
-    }
-}
-</style>
-</head>
-<body>
-<br>
-<br>
-<br>
+
 <div class="container">
     <h2>Book an Appointment</h2>
     <form id="appointmentForm">
@@ -107,14 +79,10 @@
     </form>
     <div id="message"></div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<script src="Appointment.js">
-</script>
+
+<div id="calendar"></div>
+
+<script src="Appointment.js"></script>
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
 </script>
@@ -124,15 +92,34 @@
         publicKey: "gsEoK_TxiEyrudV-r",
       });
    })();
-</script>
 
+   document.addEventListener('DOMContentLoaded', function() {
+       var calendarEl = document.getElementById('calendar');
+
+       var calendar = new FullCalendar.Calendar(calendarEl, {
+           plugins: [ 'dayGrid', 'timeGrid' ],
+           header: {
+               left: 'prev,next today',
+               center: 'title',
+               right: 'dayGridMonth,timeGridWeek,timeGridDay'
+           },
+           selectable: true,
+           select: function(info) {
+               document.getElementById('date').value = info.startStr.split('T')[0];
+               document.getElementById('time').value = info.startStr.split('T')[1].substring(0,5);
+           }
+       });
+
+       calendar.render();
+   });
+
+</script>
 
 
 <footer>
     <p>&copy; 2024 Online Jewelry Store</p>
 </footer>
 
-<script src="AddToCart.js"></script>
 
 </body>
 </html>
