@@ -8,8 +8,8 @@ function emailSend(){
     To : 'gerejohns10@gmail.com',
     From : "gerejohns10@gmail.com",
     Subject : "This is the subject",
-    Body : "messageBody"
-}).then(
+    Body : "And this is the body"
+  }).then(
   message => {
   	if(message=='OK'){
   		swal("Secussful", "You clicked the button!", "success");
