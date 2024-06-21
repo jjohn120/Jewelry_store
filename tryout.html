@@ -1,38 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <title>Contact</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
 </head>
 <body>
-  <?php
-$resend = Resend::client('re_123456789');
-
-$resend->emails->send([
-  'from' => 'Acme <onboarding@resend.dev>',
-  'to' => ['delivered@resend.dev'],
-  'subject' => 'hello world',
-  'text' => 'it works!',
-  'attachments' => [
-    [
-      'filename' => 'invoice.pdf',
-      'content' => $invoiceBuffer
-    ]
-  ],
-  'headers' => [
-    'X-Entity-Ref-ID' => '123456789',
-  ],
-  'tags' => [
-    [
-      'name' => 'category',
-      'value' => 'confirm_email',
-    ],
-  ],
-]);
-?>
-  
+    <h1>Contact</h1>
+    
+    <form method="post" action="sendEmail.php">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required>
+        
+        <label for="email">email</label>
+        <input type="email" name="email" id="email" required>
+        
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" id="subject" required>
+        
+        <label for="message">Message</label>
+        <textarea name="message" id="message" required></textarea>
+        
+        <br>
+        
+        <button>Send</button>
+    </form>
+    
 </body>
 </html>
-
-
