@@ -33,10 +33,15 @@
 <div class="container">
     <h2>Book an Appointment</h2>
     <form action="https://formsubmit.co/98e9e2bfb837420b74a2ab4fc2da3ebd" method="POST">
+        <label>Full name</label>
         <input type="text" name="name" required>
+        <label>Email</label>
         <input type="email" name="email" required>
+        <label>Number of people attending</label>
+        <input type="number" name="Number of people attending" required>
         <input type="hidden" name="_captcha" value="false">
-        <button type="submit">Send</button>
+
+        <button type="submit">Book Appointment</button>
    </form>
     <div id="message"></div>
 </div>
