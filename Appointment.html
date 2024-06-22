@@ -54,7 +54,15 @@
 <footer>
     <p>&copy; 2024 Online Jewelry Store</p>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/dayschedule-widget@latest/dist/dayschedule-widget.min.js" defer>
+    daySchedule.initPopupWidget({
+        url: 'https://meet.dayschedule.com',
+        color: {
+            primary: '#0f0980',
+            secondary: '#afeefe'
+        }
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var today = new Date().toISOString().split('T')[0];
