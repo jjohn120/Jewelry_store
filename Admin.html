@@ -18,9 +18,15 @@
     <form id="admin-form">
         <label for="admin-date">Date</label>
         <input type="date" id="admin-date" required>
-        <label for="admin-time">Time</label>
-        <input type="time" id="admin-time" required>
-        <button type="submit">Add Available Slot</button>
+        <button type="submit">Add 9 to 5 Slots</button>
+    </form>
+    <h2>Remove Specific Appointment</h2>
+    <form id="remove-form">
+        <label for="remove-date">Date</label>
+        <input type="date" id="remove-date" required>
+        <label for="remove-time">Time</label>
+        <input type="time" id="remove-time" required>
+        <button type="submit">Remove Slot</button>
     </form>
     <h2>Confirm Appointments</h2>
     <div id="unconfirmed-appointments"></div>
@@ -35,20 +41,21 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const adminForm = document.getElementById('admin-form');
+        const removeForm = document.getElementById('remove-form');
         const availableAppointments = document.getElementById('available-appointments');
         const unconfirmedAppointments = document.getElementById('unconfirmed-appointments');
 
-        function loadAppointments() {
+        const loadAppointments = () => {
             const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
             availableAppointments.innerHTML = appointments.map(app => `
                 <div>
                     ${app.date} at ${app.time}
-                    <button onclick="confirmAppointment('${app.date}', '${app.time}')">Confirm</button>
+                    <button onclick="removeAppointment('${app.date}', '${app.time}')">Remove</button>
                 </div>
             `).join('');
-        }
+        };
 
-        function loadUnconfirmedAppointments() {
+        const loadUnconfirmedAppointments = () => {
             const unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
             unconfirmedAppointments.innerHTML = unconfirmed.map(app => `
                 <div>
@@ -56,26 +63,41 @@
                     <button onclick="confirmBooking('${app.date}', '${app.time}')">Confirm Booking</button>
                 </div>
             `).join('');
-        }
+        };
+
+        const add9to5Slots = (date) => {
+            const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            for (let hour = 9; hour < 17; hour++) {
+                const time = hour.toString().padStart(2, '0') + ':00';
+                if (!appointments.find(app => app.date === date && app.time === time)) {
+                    appointments.push({ date, time });
+                }
+            }
+            localStorage.setItem('availableAppointments', JSON.stringify(appointments));
+            loadAppointments();
+        };
 
         adminForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const date = document.getElementById('admin-date').value;
-            const time = document.getElementById('admin-time').value;
-            const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
-            appointments.push({ date, time });
-            localStorage.setItem('availableAppointments', JSON.stringify(appointments));
-            loadAppointments();
+            add9to5Slots(date);
         });
 
-        window.confirmAppointment = function(date, time) {
+        removeForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const date = document.getElementById('remove-date').value;
+            const time = document.getElementById('remove-time').value;
+            removeAppointment(date, time);
+        });
+
+        window.removeAppointment = (date, time) => {
             let appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
             appointments = appointments.filter(app => app.date !== date || app.time !== time);
             localStorage.setItem('availableAppointments', JSON.stringify(appointments));
             loadAppointments();
         };
 
-        window.confirmBooking = function(date, time) {
+        window.confirmBooking = (date, time) => {
             let unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
             unconfirmed = unconfirmed.filter(app => app.date !== date || app.time !== time);
             localStorage.setItem('unconfirmedAppointments', JSON.stringify(unconfirmed));
