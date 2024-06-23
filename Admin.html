@@ -50,7 +50,7 @@
             appointments.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
             availableAppointments.innerHTML = appointments.map(app => `
                 <div>
-                    ${app.date} at ${app.time}
+                    ${app.date} at ${formatTime(app.time)}
                     <button onclick="removeAppointment('${app.date}', '${app.time}')">Remove</button>
                 </div>
             `).join('');
@@ -61,10 +61,17 @@
             unconfirmed.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
             unconfirmedAppointments.innerHTML = unconfirmed.map(app => `
                 <div>
-                    ${app.date} at ${app.time}
+                    ${app.date} at ${formatTime(app.time)}
                     <button onclick="confirmBooking('${app.date}', '${app.time}')">Confirm Booking</button>
                 </div>
             `).join('');
+        };
+
+        const formatTime = (time) => {
+            let [hours, minutes] = time.split(':');
+            const period = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            return `${hours}:${minutes} ${period}`;
         };
 
         const add9to5Slots = (date) => {
