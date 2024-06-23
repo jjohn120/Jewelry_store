@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page - Set Availability</title>
+    <link href="admin.css" rel="stylesheet" type="text/css">
+    <script src="admin.js" defer></script>
+</head>
+<body>
+
+<header>
+    <h1>Admin Page - Set Availability</h1>
+</header>
+
+<div class="container">
+    <h2>Set Available Dates and Times</h2>
+    <form id="availability-form">
+        <label>Select Date</label>
+        <input type="date" id="available-date" required>
+        
+        <label>Select Start Time</label>
+        <input type="time" id="start-time" required>
+        
+        <label>Select End Time</label>
+        <input type="time" id="end-time" required>
+        
+        <button type="submit">Set Availability</button>
+    </form>
+
+    <h3>Current Availability</h3>
+    <ul id="availability-list"></ul>
+</div>
+
+<footer>
+    <p>&copy; 2024 Online Jewelry Store</p>
+</footer>
+
+</body>
+</html>
