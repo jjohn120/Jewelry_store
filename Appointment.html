@@ -27,7 +27,7 @@
 
 <div class="container">
     <h2>Book an Appointment</h2>
-    <form action="https://formsubmit.co/98e9e2bfb837420b74a2ab4fc2da3ebd" method="POST">
+    <form id="booking-form" action="https://formsubmit.co/98e9e2bfb837420b74a2ab4fc2da3ebd" method="POST">
         <label>Full name</label>
         <input type="text" name="name" required>
         <label>Email</label>
@@ -54,9 +54,11 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const dateField = document.getElementById('appointment-date');
+        const timeField = document.getElementById('appointment-time');
+        const bookingForm = document.getElementById('booking-form');
+
         var today = new Date().toISOString().split('T')[0];
-        var dateField = document.getElementById('appointment-date');
-        var timeField = document.getElementById('appointment-time');
         dateField.setAttribute('min', today);
 
         function updateAvailableTimes() {
@@ -70,14 +72,29 @@
                 timeField.value = '';
             } else {
                 timeField.removeAttribute('disabled');
+                // Set the time options to the available times
+                timeField.innerHTML = availableTimes.map(time => `<option value="${time}">${time}</option>`).join('');
             }
-
-            // Set valid time options (You can customize this further if needed)
-            timeField.setAttribute('min', '09:00');
-            timeField.setAttribute('max', '17:00');
         }
 
         dateField.addEventListener('change', updateAvailableTimes);
+
+        bookingForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const date = dateField.value;
+            const time = timeField.value;
+            const unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
+            unconfirmed.push({ date, time });
+            localStorage.setItem('unconfirmedAppointments', JSON.stringify(unconfirmed));
+
+            // Update available appointments
+            let appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            appointments = appointments.filter(app => app.date !== date || app.time !== time);
+            localStorage.setItem('availableAppointments', JSON.stringify(appointments));
+
+            alert('Appointment booked and waiting for admin confirmation.');
+            window.location.reload();
+        });
     });
 </script>
 
