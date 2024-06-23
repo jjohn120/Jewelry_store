@@ -71,6 +71,7 @@
                 timeField.innerHTML = '';
             } else {
                 timeField.removeAttribute('disabled');
+                availableTimes.sort((a, b) => new Date(selectedDate + 'T' + a) - new Date(selectedDate + 'T' + b));
                 timeField.innerHTML = availableTimes.map(time => `<option value="${time}">${time}</option>`).join('');
             }
         };

@@ -47,6 +47,7 @@
 
         const loadAppointments = () => {
             const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            appointments.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
             availableAppointments.innerHTML = appointments.map(app => `
                 <div>
                     ${app.date} at ${app.time}
@@ -57,6 +58,7 @@
 
         const loadUnconfirmedAppointments = () => {
             const unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
+            unconfirmed.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
             unconfirmedAppointments.innerHTML = unconfirmed.map(app => `
                 <div>
                     ${app.date} at ${app.time}
