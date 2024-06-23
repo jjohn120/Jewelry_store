@@ -3,38 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page - Set Availability</title>
-    <link href="admin.css" rel="stylesheet" type="text/css">
-    <script src="Admin.js" defer></script>
+    <title>Admin - Manage Appointments</title>
+    <link href="index.css" rel="stylesheet" type="text/css">
+    <link href="Appointment.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <header>
-    <h1>Admin Page - Set Availability</h1>
+    <h1>Admin - Manage Appointments</h1>
 </header>
 
 <div class="container">
-    <h2>Set Available Dates and Times</h2>
-    <form id="availability-form">
-        <label>Select Date</label>
-        <input type="date" id="available-date" required>
-        
-        <label>Select Start Time</label>
-        <input type="time" id="start-time" required>
-        
-        <label>Select End Time</label>
-        <input type="time" id="end-time" required>
-        
-        <button type="submit">Set Availability</button>
+    <h2>Set Available Appointments</h2>
+    <form id="admin-form">
+        <label for="admin-date">Date</label>
+        <input type="date" id="admin-date" required>
+        <label for="admin-time">Time</label>
+        <input type="time" id="admin-time" required>
+        <button type="submit">Add Available Slot</button>
     </form>
-
-    <h3>Current Availability</h3>
-    <ul id="availability-list"></ul>
+    <h2>Confirm Appointments</h2>
+    <div id="available-appointments"></div>
 </div>
 
 <footer>
     <p>&copy; 2024 Online Jewelry Store</p>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const adminForm = document.getElementById('admin-form');
+        const availableAppointments = document.getElementById('available-appointments');
+
+        function loadAvailableAppointments() {
+            const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            availableAppointments.innerHTML = appointments.map(app => `
+                <div>
+                    ${app.date} at ${app.time}
+                    <button onclick="confirmAppointment('${app.date}', '${app.time}')">Confirm</button>
+                </div>
+            `).join('');
+        }
+
+        adminForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const date = document.getElementById('admin-date').value;
+            const time = document.getElementById('admin-time').value;
+            const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            appointments.push({ date, time });
+            localStorage.setItem('availableAppointments', JSON.stringify(appointments));
+            loadAvailableAppointments();
+        });
+
+        window.confirmAppointment = function(date, time) {
+            let appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            appointments = appointments.filter(app => app.date !== date || app.time !== time);
+            localStorage.setItem('availableAppointments', JSON.stringify(appointments));
+            loadAvailableAppointments();
+        };
+
+        loadAvailableAppointments();
+    });
+</script>
 
 </body>
 </html>

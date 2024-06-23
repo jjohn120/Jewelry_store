@@ -6,10 +6,7 @@
     <title>Online Jewelry Store</title>
     <link href="index.css" rel="stylesheet" type="text/css">
     <link href="Appointment.css" rel="stylesheet" type="text/css">
-    <link href='https://unpkg.com/@fullcalendar/core@6/main.min.css' rel='stylesheet' />
-    <link href='https://unpkg.com/@fullcalendar/daygrid@6/main.min.css' rel='stylesheet' />
-    <link href='https://unpkg.com/@fullcalendar/timegrid@6/main.min.css' rel='stylesheet' />
-    <script src="Appointment.js" defer></script>
+    <script src="Appointment.js"></script>
 </head>
 <body>
 
@@ -40,7 +37,7 @@
         <label>Date</label>
         <input type="date" name="Date" id="appointment-date" required>
         <label>Time</label>
-        <input type="time" name="time" id="appointment-time" required disabled>
+        <input type="time" name="time" id="appointment-time" required>
         <input type="hidden" name="_autoresponse" value="Thank you for booking your appointment! 
         You should be receiving your confirmation email shortly! Your appointment information is below!">
         <input type="hidden" name="_next" value="https://gorgeous-platypus-25d0b5.netlify.app/appointment">
@@ -54,6 +51,35 @@
 <footer>
     <p>&copy; 2024 Online Jewelry Store</p>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date().toISOString().split('T')[0];
+        var dateField = document.getElementById('appointment-date');
+        var timeField = document.getElementById('appointment-time');
+        dateField.setAttribute('min', today);
+
+        function updateAvailableTimes() {
+            const selectedDate = dateField.value;
+            const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            const availableTimes = appointments.filter(app => app.date === selectedDate).map(app => app.time);
+            
+            // If no available times, disable the time input
+            if (availableTimes.length === 0) {
+                timeField.setAttribute('disabled', 'true');
+                timeField.value = '';
+            } else {
+                timeField.removeAttribute('disabled');
+            }
+
+            // Set valid time options (You can customize this further if needed)
+            timeField.setAttribute('min', '09:00');
+            timeField.setAttribute('max', '17:00');
+        }
+
+        dateField.addEventListener('change', updateAvailableTimes);
+    });
+</script>
 
 </body>
 </html>
