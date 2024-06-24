@@ -152,7 +152,11 @@
             if (appointment) {
                 unconfirmed = unconfirmed.filter(app => app.date !== date || app.time !== time);
                 let confirmed = JSON.parse(localStorage.getItem('confirmedAppointments') || '[]');
-                confirmed.push(appointment);
+                confirmed.push({
+                    ...appointment,
+                    name: prompt('Enter client name:'),
+                    numberOfPeople: prompt('Enter number of people attending:')
+                });
                 localStorage.setItem('unconfirmedAppointments', JSON.stringify(unconfirmed));
                 localStorage.setItem('confirmedAppointments', JSON.stringify(confirmed));
                 loadUnconfirmedAppointments();

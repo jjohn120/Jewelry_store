@@ -80,10 +80,15 @@
 
         bookingForm.addEventListener('submit', function(event) {
             event.preventDefault();
-            const date = dateField.value;
-            const time = timeField.value;
+            const formData = new FormData(bookingForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const numberOfPeople = formData.get('Number of people attending');
+            const date = formData.get('Date');
+            const time = formData.get('time');
+
             const unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
-            unconfirmed.push({ date, time });
+            unconfirmed.push({ date, time, name, numberOfPeople });
             localStorage.setItem('unconfirmedAppointments', JSON.stringify(unconfirmed));
 
             let appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
