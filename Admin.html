@@ -85,12 +85,13 @@
 
         const add9to5Slots = (date) => {
             const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
-            for (let hour = 9; hour < 18; hour++) {
+            for (let hour = 9; hour < 17; hour++) {  // Change loop to add slots from 9 AM to 4 PM
                 const time = hour.toString().padStart(2, '0') + ':00';
                 if (!appointments.find(app => app.date === date && app.time === time)) {
                     appointments.push({ date, time });
                 }
             }
+            appointments.push({ date, time: '17:00' });  // Add 5 PM slot manually
             localStorage.setItem('availableAppointments', JSON.stringify(appointments));
             loadAppointments();
         };
