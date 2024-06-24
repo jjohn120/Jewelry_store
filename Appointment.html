@@ -23,11 +23,9 @@
     <a href="Appointment.html">Book Appointment</a>
 </nav>
 
-<title>Appointment Booking</title>
-
 <div class="container">
     <h2>Book an Appointment</h2>
-    <form id="booking-form" action="https://formsubmit.co/98e9e2bfb837420b74a2ab4fc2da3ebd" method="POST" netlify>
+    <form id="booking-form" action="https://formsubmit.co/98e9e2bfb837420b74a2ab4fc2da3ebd" method="POST">
         <label>Full name</label>
         <input type="text" name="name" required>
         <label>Email</label>
@@ -42,7 +40,7 @@
         You should be receiving your confirmation email shortly! Your appointment information is below!">
         <input type="hidden" name="_next" value="https://gorgeous-platypus-25d0b5.netlify.app/appointment">
         <button type="submit">Book Appointment</button>
-   </form>
+    </form>
     <div id="message"></div>
 </div>
 
@@ -57,6 +55,7 @@
         const dateField = document.getElementById('appointment-date');
         const timeField = document.getElementById('appointment-time');
         const bookingForm = document.getElementById('booking-form');
+        const messageDiv = document.getElementById('message');
 
         const today = new Date().toISOString().split('T')[0];
         dateField.setAttribute('min', today);
@@ -77,7 +76,7 @@
             
             if (availableTimes.length === 0) {
                 timeField.setAttribute('disabled', 'true');
-                timeField.innerHTML = '';
+                timeField.innerHTML = '<option value="">No available times</option>';
             } else {
                 timeField.removeAttribute('disabled');
                 availableTimes.sort((a, b) => new Date(selectedDate + 'T' + a) - new Date(selectedDate + 'T' + b));
@@ -95,6 +94,11 @@
             const numberOfPeople = formData.get('Number of people attending');
             const date = formData.get('Date');
             const time = formData.get('time');
+
+            if (time === "") {
+                messageDiv.textContent = "No available appointments at the selected time.";
+                return;
+            }
 
             const unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
             unconfirmed.push({ date, time, name, numberOfPeople });
