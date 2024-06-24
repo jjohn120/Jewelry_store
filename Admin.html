@@ -40,6 +40,8 @@
     <div id="unconfirmed-appointments"></div>
     <h2>Available Appointments</h2>
     <div id="available-appointments"></div>
+    <h2>Confirmed Appointments</h2>
+    <div id="confirmed-appointments"></div>
 </div>
 
 <footer>
@@ -53,6 +55,7 @@
         const removeForm = document.getElementById('remove-form');
         const availableAppointments = document.getElementById('available-appointments');
         const unconfirmedAppointments = document.getElementById('unconfirmed-appointments');
+        const confirmedAppointments = document.getElementById('confirmed-appointments');
 
         const loadAppointments = () => {
             const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
@@ -72,6 +75,17 @@
                 <div>
                     ${app.date} at ${formatTime(app.time)}
                     <button onclick="confirmBooking('${app.date}', '${app.time}')">Confirm Booking</button>
+                </div>
+            `).join('');
+        };
+
+        const loadConfirmedAppointments = () => {
+            const confirmed = JSON.parse(localStorage.getItem('confirmedAppointments') || '[]');
+            confirmed.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
+            confirmedAppointments.innerHTML = confirmed.map(app => `
+                <div>
+                    ${app.date} at ${formatTime(app.time)} - ${app.name} (${app.numberOfPeople} people)
+                    <button onclick="cancelBooking('${app.date}', '${app.time}')">Cancel</button>
                 </div>
             `).join('');
         };
@@ -134,13 +148,28 @@
 
         window.confirmBooking = (date, time) => {
             let unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
-            unconfirmed = unconfirmed.filter(app => app.date !== date || app.time !== time);
-            localStorage.setItem('unconfirmedAppointments', JSON.stringify(unconfirmed));
-            loadUnconfirmedAppointments();
+            const appointment = unconfirmed.find(app => app.date === date && app.time === time);
+            if (appointment) {
+                unconfirmed = unconfirmed.filter(app => app.date !== date || app.time !== time);
+                let confirmed = JSON.parse(localStorage.getItem('confirmedAppointments') || '[]');
+                confirmed.push(appointment);
+                localStorage.setItem('unconfirmedAppointments', JSON.stringify(unconfirmed));
+                localStorage.setItem('confirmedAppointments', JSON.stringify(confirmed));
+                loadUnconfirmedAppointments();
+                loadConfirmedAppointments();
+            }
+        };
+
+        window.cancelBooking = (date, time) => {
+            let confirmed = JSON.parse(localStorage.getItem('confirmedAppointments') || '[]');
+            confirmed = confirmed.filter(app => app.date !== date || app.time !== time);
+            localStorage.setItem('confirmedAppointments', JSON.stringify(confirmed));
+            loadConfirmedAppointments();
         };
 
         loadAppointments();
         loadUnconfirmedAppointments();
+        loadConfirmedAppointments();
     });
 </script>
 
