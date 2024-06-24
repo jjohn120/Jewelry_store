@@ -6,10 +6,6 @@
     <title>Admin - Manage Appointments</title>
     <link href="index.css" rel="stylesheet" type="text/css">
     <link href="Appointment.css" rel="stylesheet" type="text/css">
-    <link href='https://unpkg.com/@fullcalendar/core@6/main.min.css' rel='stylesheet' />
-    <link href='https://unpkg.com/@fullcalendar/daygrid@6/main.min.css' rel='stylesheet' />
-    <script src='https://unpkg.com/@fullcalendar/core@6/main.min.js'></script>
-    <script src='https://unpkg.com/@fullcalendar/daygrid@6/main.min.js'></script>
 </head>
 <body>
 
@@ -36,8 +32,6 @@
     <div id="unconfirmed-appointments"></div>
     <h2>Available Appointments</h2>
     <div id="available-appointments"></div>
-    <h2>Calendar View</h2>
-    <div id="calendar"></div>
 </div>
 
 <footer>
@@ -50,14 +44,6 @@
         const removeForm = document.getElementById('remove-form');
         const availableAppointments = document.getElementById('available-appointments');
         const unconfirmedAppointments = document.getElementById('unconfirmed-appointments');
-        const calendarEl = document.getElementById('calendar');
-        
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-            plugins: ['dayGrid'],
-            initialView: 'dayGridMonth',
-            events: []
-        });
-        calendar.render();
 
         const loadAppointments = () => {
             const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
@@ -68,7 +54,6 @@
                     <button onclick="removeAppointment('${app.date}', '${app.time}')">Remove</button>
                 </div>
             `).join('');
-            updateCalendarEvents();
         };
 
         const loadUnconfirmedAppointments = () => {
@@ -80,7 +65,6 @@
                     <button onclick="confirmBooking('${app.date}', '${app.time}')">Confirm Booking</button>
                 </div>
             `).join('');
-            updateCalendarEvents();
         };
 
         const formatTime = (time) => {
@@ -127,25 +111,6 @@
             unconfirmed = unconfirmed.filter(app => app.date !== date || app.time !== time);
             localStorage.setItem('unconfirmedAppointments', JSON.stringify(unconfirmed));
             loadUnconfirmedAppointments();
-        };
-
-        const updateCalendarEvents = () => {
-            calendar.removeAllEvents();
-            const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
-            const unconfirmed = JSON.parse(localStorage.getItem('unconfirmedAppointments') || '[]');
-            appointments.forEach(app => {
-                calendar.addEvent({
-                    title: 'Available',
-                    start: app.date + 'T' + app.time
-                });
-            });
-            unconfirmed.forEach(app => {
-                calendar.addEvent({
-                    title: 'Unconfirmed',
-                    start: app.date + 'T' + app.time,
-                    color: 'red'
-                });
-            });
         };
 
         loadAppointments();
