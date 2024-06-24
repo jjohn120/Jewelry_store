@@ -20,6 +20,14 @@
         <input type="date" id="admin-date" required>
         <button type="submit">Add 9 to 5 Slots</button>
     </form>
+    <h2>Add Individual Appointment</h2>
+    <form id="add-individual-form">
+        <label for="individual-date">Date</label>
+        <input type="date" id="individual-date" required>
+        <label for="individual-time">Time</label>
+        <input type="time" id="individual-time" required>
+        <button type="submit">Add Appointment</button>
+    </form>
     <h2>Remove Specific Appointment</h2>
     <form id="remove-form">
         <label for="remove-date">Date</label>
@@ -41,6 +49,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const adminForm = document.getElementById('admin-form');
+        const individualForm = document.getElementById('add-individual-form');
         const removeForm = document.getElementById('remove-form');
         const availableAppointments = document.getElementById('available-appointments');
         const unconfirmedAppointments = document.getElementById('unconfirmed-appointments');
@@ -86,10 +95,26 @@
             loadAppointments();
         };
 
+        const addIndividualSlot = (date, time) => {
+            const appointments = JSON.parse(localStorage.getItem('availableAppointments') || '[]');
+            if (!appointments.find(app => app.date === date && app.time === time)) {
+                appointments.push({ date, time });
+            }
+            localStorage.setItem('availableAppointments', JSON.stringify(appointments));
+            loadAppointments();
+        };
+
         adminForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const date = document.getElementById('admin-date').value;
             add9to5Slots(date);
+        });
+
+        individualForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const date = document.getElementById('individual-date').value;
+            const time = document.getElementById('individual-time').value;
+            addIndividualSlot(date, time);
         });
 
         removeForm.addEventListener('submit', function(event) {
