@@ -48,9 +48,20 @@
 <footer>
     <p>&copy; 2024 Online Jewelry Store</p>
 </footer>
-<?php
 
-$conn = mysqli_connect("sql5.freesqldatabase.com","sql5715888","TDKQc3ctig","sql5715888");
+<?php
+$servername = "sql5.freesqldatabase.com";
+$username = "sql5.freesqldatabase.com";
+$password = "TDKQc3ctig";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+echo "Connected successfully";
 ?>
 
 
