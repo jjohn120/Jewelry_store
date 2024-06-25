@@ -48,7 +48,10 @@
 <footer>
     <p>&copy; 2024 Online Jewelry Store</p>
 </footer>
+<?php
 
+$conn = mysqli_connect("sql5.freesqldatabase.com","sql5715888","TDKQc3ctig","sql5715888");
+?>
 
 
 
